@@ -1,0 +1,28 @@
+forward:
+  kp: 3.0
+  ki: 0.0
+  kd: 0.5
+  dt: 0.1
+  max: 12.0  # m/s
+  min: -12.0
+leftright:
+  kp: 2.0
+  ki: 0.0
+  kd: 0.5
+  dt: 0.1
+  max: 5.0  # m/s
+  min: -5.0
+updown:
+  kp: 2.0
+  ki: 0.0
+  kd: 0.5
+  dt: 0.1
+  max: 5.0  # m/s
+  min: -5.0
+yaw:
+  kp: 1.0
+  ki: 0.0
+  kd: 0.1
+  dt: 0.1
+  max: 90.0  # degree/s
+  min: -90.0

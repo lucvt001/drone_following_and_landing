@@ -1,0 +1,19 @@
+car:
+  gps: "/car/gps_location"
+  pose: "/car/fused_pose"
+  velocity: "/car/fused_velocity"
+
+drone:
+  gps: "/drone/gps_location"
+  pose: "/drone/fused_pose"
+  velocity: "/drone/fused_velocity"
+  cmd_vel_body: "/drone/cmd_vel_body"
+  cmd_vel_world: "/drone/cmd_vel_world"
+  move_to_gps: "/drone/move_to_gps"
+  move_to_position: "/drone/move_to_position"
+  move_to_altitude: "/drone/move_to_altitude"
+
+car_to_drone:
+  relative_position_ned: "/car_to_drone/relative_position_ned"
+  offset_relative_position_ned: "/car_to_drone/offset_relative_position_ned"
+

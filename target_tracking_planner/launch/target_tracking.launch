@@ -1,0 +1,16 @@
+<launch>
+    <!-- <node name="relative_ned_position" pkg="target_tracking_planner" type="relative_ned_position" output="screen"/> -->
+
+    <node name="gps_to_ned" pkg="target_tracking_planner" type="gps_to_ned" output="screen">
+        <param name="car_gps_topic" type="string" value="/car/gps_location"/>
+        <param name="drone_gps_topic" type="string" value="/drone/gps_location"/>
+        <param name="car_to_drone_ned_topic" type="string" value="/relative_position"/>
+    </node>
+
+    <node name="offset_relative_ned_position" pkg="target_tracking_planner" type="offset_relative_ned_position" output="screen">
+        <param name="offset_x" type="double" value="-10.0"/>
+        <param name="offset_y" type="double" value="0"/>
+        <param name="offset_z" type="double" value="-5.0"/>
+    </node>
+    
+</launch>
