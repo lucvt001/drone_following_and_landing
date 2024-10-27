@@ -6,7 +6,8 @@
 #include <cv_bridge/cv_bridge.h>
 #include <sensor_msgs/Image.h>
 #include <std_msgs/Float32MultiArray.h>
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
 #include <opencv2/aruco.hpp>
 
 class ArucoDetector {
@@ -18,8 +19,15 @@ private:
     ros::NodeHandle nh_;
     image_transport::ImageTransport it_;
     image_transport::Subscriber image_sub_;
+    image_transport::Publisher image_pub_;
     ros::Publisher bbox_pub_;
-    cv::Ptr<cv::aruco::Dictionary> dictionary_;
+    std::vector<cv::Ptr<cv::aruco::Dictionary>> dictionaries_;
+    cv::Mat frame;
+
+    std::string input_image_topic_;
+    std::string output_image_topic_;
+    std::string bbox_pub_topic_;
+    bool is_display_;
 
     const int frame_width = 640;
     const int frame_height = 480;

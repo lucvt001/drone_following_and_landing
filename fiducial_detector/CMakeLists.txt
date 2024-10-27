@@ -10,6 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 find_package(OpenCV REQUIRED)
+find_package(YAML-CPP REQUIRED)
 
 catkin_package(
 #  INCLUDE_DIRS include
@@ -22,6 +23,7 @@ include_directories(
   include
   ${catkin_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
+  ${YAML_CPP_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -32,3 +34,15 @@ include_directories(
 add_executable(fiducial_detector src/main.cpp src/detector.cpp)
 target_link_libraries(fiducial_detector ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 add_dependencies(fiducial_detector ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_executable(detect_one_image src/detect_one_image.cpp)
+target_link_libraries(detect_one_image ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+
+add_executable(find_all_aruco_offsets src/find_all_aruco_offsets.cpp)
+target_link_libraries(find_all_aruco_offsets ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} ${YAML_CPP_LIBRARIES})
+
+add_executable(add_common_offset src/add_common_offset.cpp)
+target_link_libraries(add_common_offset ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} ${YAML_CPP_LIBRARIES})
+
+add_executable(scale_common_offset src/scale_common_offset.cpp)
+target_link_libraries(scale_common_offset ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} ${YAML_CPP_LIBRARIES})
