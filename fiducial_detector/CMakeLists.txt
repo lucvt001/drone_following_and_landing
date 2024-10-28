@@ -32,7 +32,7 @@ include_directories(
 # )
 
 add_executable(fiducial_detector src/main.cpp src/detector.cpp)
-target_link_libraries(fiducial_detector ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+target_link_libraries(fiducial_detector ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} ${YAML_CPP_LIBRARIES})
 add_dependencies(fiducial_detector ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 add_executable(detect_one_image src/detect_one_image.cpp)

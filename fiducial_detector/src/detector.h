@@ -9,13 +9,26 @@
 #include <opencv2/core.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/aruco.hpp>
+#include <yaml-cpp/yaml.h>
+#include <iostream>
+#include <fstream>
+#include <unordered_map>
 
 class ArucoDetector {
 public:
     ArucoDetector(ros::NodeHandle& nh);
-    void imageCallback(const sensor_msgs::ImageConstPtr& msg);
 
 private:
+    void imageCallback(const sensor_msgs::ImageConstPtr& msg);
+    void loadCameraParameters(const std::string& filename);
+    void loadMarkerSize(const std::string& filename);
+
+    std::string camera_parameters_yaml_;
+    std::string marker_size_yaml_;
+    cv::Mat camera_matrix_;
+    cv::Mat dist_coeffs_;
+    std::unordered_map<int, double> marker_sizes_;
+
     ros::NodeHandle nh_;
     image_transport::ImageTransport it_;
     image_transport::Subscriber image_sub_;

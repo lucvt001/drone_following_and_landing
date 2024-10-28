@@ -4,5 +4,7 @@
         <param name="output_image_topic" type="string" value="/aruco/annotated_frames" />
         <param name="bbox_pub_topic" type="string" value="/aruco/bounding_boxes" />
         <param name="is_display" type="bool" value="true" />
+        <param name="camera_parameters_yaml" type="string" value="/home/lucvt001/drone_ws/src/camera_calibration/iphone_calibration_coef.yaml" />
+        <param name="marker_size_yaml" type="string" value="/home/lucvt001/drone_ws/src/fiducial_detector/images/marker_size.yaml" />
     </node>
 </launch>
