@@ -1,0 +1,9 @@
+<launch>
+    <!-- Set the camera index parameter -->
+    <arg name="camera_index" value="0" />
+
+    <!-- Launch the aruco_detector node -->
+    <node name="aruco_detector" pkg="aruco_detector" type="aruco_detector" output="screen">
+        <param name="camera_index" value="$(arg camera_index)" />
+    </node>
+</launch>

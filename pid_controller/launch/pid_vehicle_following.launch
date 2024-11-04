@@ -1,0 +1,21 @@
+<launch> 
+
+    <!-- Airsim interface -->
+    <include file="$(find airsim_rospkg)/launch/airsim.launch" />
+
+    <rosparam file="$(find pid_controller)/config/topics.yaml" command="load"/>
+
+    <!-- Convert to relative coordinates -->
+    <node name="gps_to_ned" pkg="target_tracking_planner" type="gps_to_ned" output="screen"/>
+
+    <node name="offset_relative_ned_position" pkg="target_tracking_planner" type="offset_relative_ned_position" output="screen">
+        <param name="offset_x" type="double" value="0"/>
+        <param name="offset_y" type="double" value="0"/>
+        <param name="offset_z" type="double" value="-5.0"/>
+    </node>
+
+    <node name="pid_controller_node" pkg="pid_controller" type="follow_relative_ned" output="screen">
+        <rosparam file="$(find pid_controller)/config/pid_params.yaml"/>
+    </node>
+
+</launch>
