@@ -42,37 +42,15 @@ void ArucoDetector::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
     }
 
     cv::aruco::drawDetectedMarkers(frame, marker_corners, marker_ids);
-    
-    float x_sum = 0, y_sum = 0, z_sum = 0;
-    float x_size_sum = 0, y_size_sum = 0, z_size_sum = 0;
-    cv::Vec3d rvec;
-    for (size_t i = 0; i < marker_ids.size(); i++) {
-        if (marker_ids[i] > 600) continue;       // Filter out erroneous markers
-        if (i >= 5) break;                        // Only take the first X markers
 
-        std::vector<cv::Vec3d> rvecs, tvecs;
-        std::vector<std::vector<cv::Point2f>> marker_corner = {marker_corners[i]};
-        float marker_size = marker_info_[marker_ids[i]].size / 100;
-        cv::aruco::estimatePoseSingleMarkers(marker_corner, marker_size, camera_matrix_, dist_coeffs_, rvecs, tvecs);
+    std::vector<cv::Vec3d> rvecs, tvecs;
+    std::vector<std::vector<cv::Point2f>> marker_corner = {marker_corners[0]};
+    float marker_size = marker_info_[marker_ids[0]].size / 100;
+    cv::aruco::estimatePoseSingleMarkers(marker_corner, marker_size, camera_matrix_, dist_coeffs_, rvecs, tvecs);
 
-        // Calculate the marker-size-weighted average position of the markers
-        // x_sum += (tvecs[0][0] - marker_info_[marker_ids[i]].x / 100) * marker_size;
-        // y_sum += (tvecs[0][1] - marker_info_[marker_ids[i]].y / 100) * marker_size;
-        // z_sum += tvecs[0][2] * marker_size;
-        // x_size_sum += marker_size;
-        // y_size_sum += marker_size;
-        // z_size_sum += marker_size;
-        // rvec = rvecs[0];
-
-        tvecs[0][0] -= marker_info_[marker_ids[i]].x / 100;
-        tvecs[0][1] -= marker_info_[marker_ids[i]].y / 100;
-        cv::aruco::drawAxis(frame, camera_matrix_, dist_coeffs_, rvecs[0], tvecs[0], 0.1);
-    }
-    // float x_avg = x_sum / x_size_sum;
-    // float y_avg = y_sum / y_size_sum;
-    // float z_avg = z_sum / z_size_sum;
-    // cv::Vec3d tvec(x_avg, y_avg, z_avg);
-    // cv::aruco::drawAxis(frame, camera_matrix_, dist_coeffs_, rvec, tvec, 0.1);
+    tvecs[0][0] -= marker_info_[marker_ids[0]].x / 100;
+    tvecs[0][1] -= marker_info_[marker_ids[0]].y / 100;
+    cv::aruco::drawAxis(frame, camera_matrix_, dist_coeffs_, rvecs[0], tvecs[0], 0.1);
     displayAndPublishImage(frame);
 }
 
@@ -112,3 +90,21 @@ void ArucoDetector::loadMarkerInfo(const std::string& filename) {
         marker_info_[id] = info;
     }
 }
+
+    // float x_sum = 0, y_sum = 0, z_sum = 0;
+    // float x_size_sum = 0, y_size_sum = 0, z_size_sum = 0;
+    // cv::Vec3d rvec;
+
+    // Calculate the marker-size-weighted average position of the markers
+    // x_sum += (tvecs[0][0] - marker_info_[marker_ids[i]].x / 100) * marker_size;
+    // y_sum += (tvecs[0][1] - marker_info_[marker_ids[i]].y / 100) * marker_size;
+    // z_sum += tvecs[0][2] * marker_size;
+    // x_size_sum += marker_size;
+    // y_size_sum += marker_size;
+    // z_size_sum += marker_size;
+    // rvec = rvecs[0];
+
+    // float x_avg = x_sum / x_size_sum;
+    // float y_avg = y_sum / y_size_sum;
+    // float z_avg = z_sum / z_size_sum;
+    // cv::Vec3d tvec(x_avg, y_avg, z_avg);
